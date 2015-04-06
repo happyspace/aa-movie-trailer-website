@@ -72,6 +72,12 @@ main_page_head = '''
               'frameborder': 0
             }));
         });
+        // Show movie details
+        $(document).on('hover', '.movie-tile', function (event){
+            console.log(event);
+            $("#movie-details-container").empty().append( "moo" );
+        });
+
         // Animate in the movies when the page loads
         $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
