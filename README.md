@@ -17,7 +17,7 @@ Movie trialer web page.
  
 ## Enhancements 
 
-UI includes popover functionality of Twitter Bootstap for movie details on hover ala Netflix. 
+UI includes popover functionality of Twitter Bootstrap for movie details on hover ala Netflix. 
 
 TODO: Use template to better format popover content. 
 
