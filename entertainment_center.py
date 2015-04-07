@@ -61,6 +61,9 @@ the_one_i_love = media.Movie(movie_title="The One I Love",
                              trailer_youtube="https://www.youtube.com/watch?v=jCOvhojlZzQ",
                              movie_year=2014)
 
+# movies collection
 movies = [grand_budapest_hotel, winters_bone, eternal_sunshine, adele_blanc_sec, oldboy, the_one_i_love]
+
+# create web page
 fresh_tomatoes.open_movies_page(movies)
 

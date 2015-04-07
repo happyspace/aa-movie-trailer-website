@@ -4,7 +4,7 @@ class Movie():
     """
     This class provides a way to store movie related information
     """
-
+    # valid ratings
     VALID_RATINGS = ["G", "PG", "PG-13", "R", "NR"]
 
     def __init__(self, movie_title,
