@@ -48,6 +48,12 @@
             top: 0;
             background-color: white;
         }
+         .popover-title {
+            background-color: #F51142;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
     </style>
     <script type="text/javascript" charset="utf-8">
         // Pause the video when the modal is closed
@@ -57,26 +63,48 @@
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.movie-tile', function (event) {
-            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
-            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
-            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
-              'id': 'trailer-video',
-              'type': 'text-html',
-              'src': sourceUrl,
-              'frameborder': 0
-            }));
-        });
-        // Show movie details
-        $(document).on('hover', '.movie-tile', function (event){
-            console.log(event);
-            $("#movie-details-container").empty().append( "moo" );
-        });
+        // Start playing the video whenever the trailer modal is opened
+        // Show popover of movie details
+        $(document).on({
+            mouseenter: function () {
+
+                var movieYear = $(this).attr('data-movie-year');
+                var storyline = $(this).attr('data-movie-storyline');
+                var popover =  $(this).data('bs.popover');
+                var title = $(this).attr('title');
+
+                $(this).attr('title', title + "moo");
+                $(this).attr('data-content', storyline + " " );
+                $(this).popover("show");
+
+                console.log('moo enter');
+            },
+            mouseleave: function() {
+                console.log("moo exit");
+            },
+            click: function() {
+                var trailerYouTubeId = $(this).attr('data-trailer-youtube-id');
+                var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+                $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+                    'id': 'trailer-video',
+                    'type': 'text-html',
+                    'src': sourceUrl,
+                    'frameborder': 0
+                }))
+            }
+        }, '.movie-tile');
+
+
 
         // Animate in the movies when the page loads
         $(document).ready(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             $(this).next("div").show("fast", showNext);
+          });
+
+          $('.movie-tile').popover({ trigger: "hover",
+                                  content: "",
+                                  placement: "auto right"
           });
         });
     </script>
@@ -97,6 +125,19 @@
         </div>
       </div>
     </div>
+
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="movie-details">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="movie-details-container">
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- Main Page Content -->
     <div class="container">
@@ -110,33 +151,93 @@
     </div>
     <div class="container">
       
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="1Fg5iWmQjwk" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/a/a6/The_Grand_Budapest_Hotel_Poster.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="1Fg5iWmQjwk"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2014"
+    data-content=""
+    title="The Grand Budapest Hotel 2014"
+    data-movie-storyline="The adventures of Gustave H, a legendary concierge at a famous hotel from the fictional Republic of Zubrowka between the first and second World Wars, and Zero Moustafa, the lobby boy who becomes his most trusted friend.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/a/a6/The_Grand_Budapest_Hotel_Poster.jpg"
+        width="220"
+        height="342"
+        >
     <h2>The Grand Budapest Hotel</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="5O8F8JtSVmI" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/6/6f/Winters_bone_poster.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="5O8F8JtSVmI"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2010"
+    data-content=""
+    title="Winter's Bone 2010"
+    data-movie-storyline="An unflinching Ozark Mountain girl hacks through dangerous social terrain as she hunts down her drug-dealing father while trying to keep her family intact.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/6/6f/Winters_bone_poster.jpg"
+        width="220"
+        height="342"
+        >
     <h2>Winter's Bone</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="0zFywiAh7N0" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/6/62/Eternal_sunshine_of_the_spotless_mind_ver3.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="0zFywiAh7N0"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2004"
+    data-content=""
+    title="Eternal Sunshine of the Spotless Mind 2004"
+    data-movie-storyline="When their relationship turns sour, a couple undergoes a procedure to have each other erased from their memories. But it is only through the process of loss that they discover what they had to begin with.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/6/62/Eternal_sunshine_of_the_spotless_mind_ver3.jpg"
+        width="220"
+        height="342"
+        >
     <h2>Eternal Sunshine of the Spotless Mind</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="DAhmCHnNcWs" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/d/da/Adele_Blanc-sec_Louise_Bourgoin_Luc_Besson.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="DAhmCHnNcWs"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2010"
+    data-content=""
+    title="The Extraordinary Adventures of Adele Blanc-Sec 2010"
+    data-movie-storyline="An adventure set in the early part of the 20th century and focused on a popular novelist and her dealings with would-be suitors, the cops, monsters, and other distractions.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/d/da/Adele_Blanc-sec_Louise_Bourgoin_Luc_Besson.jpg"
+        width="220"
+        height="342"
+        >
     <h2>The Extraordinary Adventures of Adele Blanc-Sec</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="tphnn5EPj2w" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="tphnn5EPj2w"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2003"
+    data-content=""
+    title="Oldboy 2003"
+    data-movie-storyline="After being kidnapped and imprisoned for 15 years, Oh Dae-Su is released, only to find that he must find his captor in 5 days.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg"
+        width="220"
+        height="342"
+        >
     <h2>Oldboy</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="jCOvhojlZzQ" data-toggle="modal" data-target="#trailer">
-    <img src="http://upload.wikimedia.org/wikipedia/en/4/41/TOIL_poster.jpg" width="220" height="342">
+<div class="col-md-6 col-lg-4 movie-tile text-center"
+    data-trailer-youtube-id="jCOvhojlZzQ"
+    data-toggle="modal"
+    data-target="#trailer"
+    data-movie-year="2014"
+    data-content=""
+    title="The One I Love 2014"
+    data-movie-storyline="Struggling with a marriage on the brink of falling apart, a couple escapes for a weekend in pursuit of their better selves, only to discover an unusual dilemma that awaits them.">
+    <img src="http://upload.wikimedia.org/wikipedia/en/4/41/TOIL_poster.jpg"
+        width="220"
+        height="342"
+        >
     <h2>The One I Love</h2>
 </div>
 

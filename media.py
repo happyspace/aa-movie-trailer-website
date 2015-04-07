@@ -41,5 +41,4 @@ class Movie():
         self.movie_director = movie_director
         self.movie_year = movie_year
 
-    def show_trailer(self):
-        webbrowser.open(self.trailer_youtube_url)
+
